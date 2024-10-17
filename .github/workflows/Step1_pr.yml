@@ -6,30 +6,30 @@ on:
       - master
 
 jobs:
-  # test:
-  #   runs-on: ubuntu-latest
+  test:
+    runs-on: ubuntu-latest
 
-  #   steps:
-  #     - name: Setup Node Environment
-  #       uses: ./.github/workflows/shared
+    steps:
+      - name: Setup Node Environment
+        uses: ./.github/workflows/shared
 
-      # # Step 4 - Run prettier check
-      # - name: Run prettier check
-      #   run: npm run prettier
+      # Step 4 - Run prettier check
+      - name: Run prettier check
+        run: npm run prettier
 
-      # # Step 5 - Run linter
-      # - name: Run linter
-      #   run: npm run lint
+      # Step 5 - Run linter
+      - name: Run linter
+        run: npm run lint
 
       # Step 4 - Run tests
-      # - name: Run tests
-      #   run: npm test
+      - name: Run tests
+        run: npm test
 
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      
+
       - name: Setup Node Environment
         uses: ./.github/workflows/shared
 
