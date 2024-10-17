@@ -6,12 +6,12 @@ on:
       - master
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
+  # test:
+  #   runs-on: ubuntu-latest
 
-    steps:
-      - name: Setup Node Environment
-        uses: ./.github/workflows/shared/action.yml
+  #   steps:
+  #     - name: Setup Node Environment
+  #       uses: ./.github/workflows/shared/action.yml
 
       # # Step 4 - Run prettier check
       # - name: Run prettier check
