@@ -16,6 +16,8 @@ console.log({
   max: 10,
 });
 
+console.log("GODAVS ANDREAS! :D");
+
 console.log(process.env.PGUSER);
 
 async function main() {
