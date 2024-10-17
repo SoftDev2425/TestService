@@ -11,7 +11,7 @@ jobs:
 
   #   steps:
   #     - name: Setup Node Environment
-  #       uses: ./.github/workflows/shared/action.yml
+  #       uses: ./.github/workflows/shared
 
       # # Step 4 - Run prettier check
       # - name: Run prettier check
@@ -29,7 +29,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Setup Node Environment
-        uses: ./.github/workflows/shared/action.yml
+        uses: ./.github/workflows/shared
 
       # Step 7 - Run build
       - name: Run build
