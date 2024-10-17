@@ -23,4 +23,6 @@ export async function getAllUsers() {
   }
 }
 
-export const createUser = async (name: string, password: string) => {};
+export const createUser = async (name: string, password: string) => {
+  console.log(name, password);
+};
