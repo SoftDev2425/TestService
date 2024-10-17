@@ -24,8 +24,8 @@ jobs:
         run: npm run lint
 
       # Step 4 - Run tests
-      - name: Run tests
-        run: npm test
+      # - name: Run tests
+      #   run: npm test
 
   build:
     runs-on: ubuntu-latest

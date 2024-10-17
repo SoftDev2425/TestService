@@ -14,8 +14,6 @@ const dialect = new PostgresDialect({
     }),
 });
 
-
-
 // Database interface is passed to Kysely's constructor, and from now on, Kysely
 // knows your database structure.
 // Dialect is passed to Kysely's constructor, and from now on, Kysely knows how
