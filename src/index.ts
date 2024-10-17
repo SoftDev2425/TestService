@@ -17,6 +17,7 @@ console.log({
 });
 
 console.log("GODAVS ANDREAS! :D");
+console.log("GODAVS OWAIS! :D");
 
 console.log(process.env.PGUSER);
 
