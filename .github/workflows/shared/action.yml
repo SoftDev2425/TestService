@@ -15,5 +15,3 @@ runs:
     - name: Install dependencies
       shell: bash
       run: npm ci
-      paths:
-        - ${{ secrets.PATH }}
