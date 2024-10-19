@@ -48,13 +48,15 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }} # Use the provided GitHub token
 
       - name: Build and push container versioned image
+        if: steps.release.outputs.version != ''
         run: |
-          VERSION="${{steps.release.outputs.version}}"
+          VERSION="${{ steps.release.outputs.version }}"
           IMAGE_NAME="ghcr.io/$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]'):${VERSION}"
           docker build -t $IMAGE_NAME .
           docker push $IMAGE_NAME
 
       - name: Build and push container latest image
+        if: steps.release.outputs.version != ''
         run: |
           IMAGE_NAME="ghcr.io/$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]'):latest"
           docker build -t $IMAGE_NAME .
