@@ -1,4 +1,5 @@
-import { ColumnType, Generated, Insertable, JSONColumnType, Selectable, Updateable } from "kysely";
+import { ColumnType, Insertable, Selectable, Updateable } from 'kysely';
+// Generated, JSONColumnType
 
 export interface Database {
   Users: UserTable;

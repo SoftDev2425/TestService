@@ -1,6 +1,6 @@
-import { Request, Response } from "express";
-import { NotFoundError } from "../utils/NotFoundErrorClass";
-import { createUser, getAllUsers, getUserById } from "../services/user.service";
+import { Request, Response } from 'express';
+import { NotFoundError } from '../utils/NotFoundErrorClass';
+import { createUser, getAllUsers, getUserById } from '../services/user.service';
 
 const handleGetUserById = async (req: Request, res: Response) => {
   try {
@@ -10,10 +10,10 @@ const handleGetUserById = async (req: Request, res: Response) => {
 
     res.status(200).json(user);
   } catch (e) {
-    if (e instanceof NotFoundError || (e as Error).name === "NotFoundError") {
+    if (e instanceof NotFoundError || (e as Error).name === 'NotFoundError') {
       return res.status(404).json({ error: (e as Error).message });
     }
-    return res.status(500).json({ error: "Internal server error" });
+    return res.status(500).json({ error: 'Internal server error' });
   }
 };
 
@@ -21,7 +21,7 @@ const handleCreateUser = async (req: Request, res: Response) => {
   const { name, password } = req.body;
 
   if (!name || !password) {
-    res.status(400).json({ error: "Name and password are required" });
+    res.status(400).json({ error: 'Name and password are required' });
   }
 
   try {
@@ -37,7 +37,7 @@ const handleCreateUser = async (req: Request, res: Response) => {
       return res.status(500).json({ error: (e as Error).message });
     }
 
-    res.status(500).json({ error: "Internal server error" });
+    res.status(500).json({ error: 'Internal server error' });
   }
 };
 
@@ -50,7 +50,7 @@ const handleGetAllUsers = async (req: Request, res: Response) => {
       return res.status(500).json({ error: e.message });
     }
 
-    res.status(500).json({ error: "Internal server error" });
+    res.status(500).json({ error: 'Internal server error' });
   }
 };
 

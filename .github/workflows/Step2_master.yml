@@ -1,0 +1,41 @@
+name: Master
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  tag:
+    runs-on: ubuntu-latest
+    name: Create Release Tag
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Setup Node Environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm ci --include=dev
+
+      - name: Build the application
+        run: npm run build
+
+      - name: Create a new version and release
+        id: release
+        run: |
+          npx sementic-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create and push version tag
+        if: steps.release.outputs.version != ''
+        run: |
+          TAG_NAME=v${{ steps.release.outputs.version }}
+          git tag $TAG_NAME
+          git push origin $TAG_NAME
