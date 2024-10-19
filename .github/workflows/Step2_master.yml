@@ -4,14 +4,11 @@ on:
   push:
     branches:
       - master
-    tags:
-      - 'v*' # Trigger on tags that follow semantic versioning
 
 jobs:
   tag_and_release:
     runs-on: ubuntu-latest
     name: Create Release Tag
-    if: github.ref == 'refs/heads/master' # Removed from here
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -44,9 +41,10 @@ jobs:
           git push origin $TAG_NAME
 
   build_and_push:
+    needs: tag_and_release  # Waits for the tag_and_release job to finish
     runs-on: ubuntu-latest
     name: Build and Push Docker Image
-    # No explicit condition here. Triggered automatically on tag pushes.
+    if: github.ref_type == 'tag' && startsWith(github.ref, 'refs/tags/v')  # Runs only for tag pushes
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
