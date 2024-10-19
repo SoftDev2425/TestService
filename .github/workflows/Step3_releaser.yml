@@ -1,9 +1,10 @@
 name: Releaser
 
 on:
-  push:
-    tags:
-      - 'v*' # Trigger on tags that follow semantic versioning
+  workflow_run:
+    workflows: ['Master']
+    types:
+      - completed
 
 jobs:
   build_and_push:
