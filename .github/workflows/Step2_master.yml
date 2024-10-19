@@ -35,7 +35,7 @@ jobs:
 
       - name: Build and push container versioned image
         run: |
-          IMAGE_NAME="ghcr.io/$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]'):$(git rev-parse --short "$GITHUB_SHA")"
+          IMAGE_NAME="ghcr.io/$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]'):${{ github.sha }}"
           echo "Building versioned image: $IMAGE_NAME"
           docker build -t $IMAGE_NAME .
           docker push $IMAGE_NAME
