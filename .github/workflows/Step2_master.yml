@@ -30,6 +30,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Debug version output
+        run: echo "Version: ${{ steps.release.outputs.version }}"
+
       - name: Create and push version tag
         if: steps.release.outputs.version != ''
         run: |
@@ -52,12 +55,13 @@ jobs:
         run: |
           VERSION="${{ steps.release.outputs.version }}"
           IMAGE_NAME="ghcr.io/$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]'):${VERSION}"
+          echo "Building versioned image: $IMAGE_NAME"
           docker build -t $IMAGE_NAME .
           docker push $IMAGE_NAME
 
       - name: Build and push container latest image
-        if: steps.release.outputs.version != ''
         run: |
           IMAGE_NAME="ghcr.io/$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]'):latest"
+          echo "Building latest image: $IMAGE_NAME"
           docker build -t $IMAGE_NAME .
           docker push $IMAGE_NAME
