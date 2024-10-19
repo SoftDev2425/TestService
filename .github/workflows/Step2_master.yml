@@ -31,7 +31,7 @@ jobs:
         run: |
           npx sementic-release
         env:
-          GITHUB_TOKEN: ${{ secrets.SEMANTIC_RELEASE_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create and push version tag
         if: steps.release.outputs.version != ''

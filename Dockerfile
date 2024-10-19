@@ -2,10 +2,10 @@ FROM node:20-alpine
 
 WORKDIR /app
 
-COPY . /app
+COPY ./package.json .
 
-RUN npm ci
+COPY ./dist .
 
-RUN npm run build
+RUN npm ci --production
 
-CMD ["npm", "start"]
+CMD ["node", "index.js"]
