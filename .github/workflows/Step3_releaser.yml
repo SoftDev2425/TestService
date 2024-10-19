@@ -37,7 +37,7 @@ jobs:
 
       - name: Build and push container versioned image
         run: |
-          VERSION=$(echo "${GITHUB_REF}" | sed -e 's|refs/tags/v||')
+          VERSION=$(echo "${GITHUB_REF}" | grep -oP '(?<=tags\/v)[0-9]+\.[0-9]+\.[0-9]+')
           IMAGE_NAME="ghcr.io/$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]'):${VERSION}"
           docker build -t $IMAGE_NAME .
           docker push $IMAGE_NAME
