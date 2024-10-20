@@ -21,7 +21,7 @@ jobs:
         run: npm install
 
       - name: Build the application
-        run: npm run build # Adjust if your build command is different
+        run: npm run build
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
