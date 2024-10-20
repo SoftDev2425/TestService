@@ -1,5 +1,11 @@
-name: Build server
+name: Build Node.js Environment
 description: Build the server code for Node.js
+
+inputs:
+  node-version:
+    description: 'Node.js version to use'
+    default: '20'
+    required: false
 
 runs:
   using: composite
@@ -7,7 +13,7 @@ runs:
     - name: Set up Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: "20"
+        node-version: '${{ inputs.node-version }}'
 
     - name: Install dependencies
       shell: bash

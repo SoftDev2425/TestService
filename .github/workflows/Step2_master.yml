@@ -10,15 +10,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20' # Use your desired Node.js version
-
-      - name: Install dependencies
-        run: npm install
+      - name: Setting up Node.js environment
+        uses: ./.github/workflows/shared
 
       - name: Build the application
         run: npm run build
@@ -33,16 +28,32 @@ jobs:
           username: ${{ github.actor }} # Use the GitHub actor (the user triggering the action)
           password: ${{ secrets.GITHUB_TOKEN }} # Use the provided GitHub token
 
-      - name: Build and push container versioned image
+      - name: Build and Push Container (Versioned with sha)
         run: |
           IMAGE_NAME="ghcr.io/$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]'):${{ github.sha }}"
           echo "Building versioned image: $IMAGE_NAME"
           docker build -t $IMAGE_NAME .
           docker push $IMAGE_NAME
 
-      - name: Build and push container latest image
+      - name: Build and Push Container (Latest)
         run: |
           IMAGE_NAME="ghcr.io/$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]'):latest"
           echo "Building latest image: $IMAGE_NAME"
           docker build -t $IMAGE_NAME .
           docker push $IMAGE_NAME
+
+      # Create a new version and release with semantic-release
+      - name: Create a new version and release
+        id: release
+        run: npx semantic-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Token to create a release
+
+      # Create and push version tag if a new version was released
+      - name: Create and push version tag
+        if: steps.release.outputs.version != ''
+        run: |
+          TAG_NAME=v${{ steps.release.outputs.version }}
+          echo "Creating version tag: $TAG_NAME"
+          git tag $TAG_NAME
+          git push origin $TAG_NAME
