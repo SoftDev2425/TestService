@@ -8,4 +8,6 @@ COPY ./dist ./
 
 RUN npm ci --omit=dev
 
+RUN npx prisma generate
+
 CMD ["node", "index.js"]
