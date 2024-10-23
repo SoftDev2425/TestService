@@ -21,7 +21,7 @@ const handleCreateUser = async (req: Request, res: Response) => {
   const { name, password } = req.body;
 
   if (!name || !password) {
-    res.status(400).json({ error: 'Name and password are required' });
+    return res.status(400).json({ error: 'Name and password are required' });
   }
 
   try {
@@ -41,7 +41,7 @@ const handleCreateUser = async (req: Request, res: Response) => {
   }
 };
 
-const handleGetAllUsers = async (req: Request, res: Response) => {
+const handleGetAllUsers = async (_req: Request, res: Response) => {
   try {
     const users = await getAllUsers();
     res.status(200).json(users);

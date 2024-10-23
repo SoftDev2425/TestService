@@ -2,11 +2,11 @@ import { Express, Request, Response } from 'express';
 import UserRouter from './routes/user.route';
 
 function routes(app: Express) {
-  app.get('/', (req: Request, res: Response) =>
+  app.get('/', (_req: Request, res: Response) =>
     res.send(`Hello from MTOGO: Test Service!`),
   );
 
-  app.get('/healthcheck', (req: Request, res: Response) => res.sendStatus(200));
+  app.get('/healthcheck', (_req: Request, res: Response) => res.sendStatus(200));
 
   // Register API routes
   app.use('/api/users', UserRouter);
