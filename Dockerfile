@@ -3,13 +3,13 @@ FROM node:20-alpine
 WORKDIR /app
 
 COPY package*.json ./
+COPY prisma ./prisma
 
 RUN npm ci --omit=dev
 
-COPY ./prisma ./prisma
+COPY ./dist ./
 
 RUN npx prisma generate 
 
-COPY ./dist ./
 
-CMD ["node", "index.js"]
+CMD ["node", "src/index.js"]
